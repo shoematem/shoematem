@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: Flooring.DAO.FlooringDaoFileImplTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.037 sec <<< FAILURE!
+Flooring.DAO.FlooringDaoFileImplTest.testAddOrder()  Time elapsed: 0.033 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at Flooring.DAO.FlooringDaoFileImplTest.testAddOrder(FlooringDaoFileImplTest.java:56)
+
+Flooring.DAO.FlooringDaoFileImplTest.testRemoveOrder()  Time elapsed: 0 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at Flooring.DAO.FlooringDaoFileImplTest.testRemoveOrder(FlooringDaoFileImplTest.java:101)
+

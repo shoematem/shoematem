@@ -1,0 +1,4 @@
+RoomTypeID,RoomTypeName,StandardOccupancy,MaxOccupancy
+1,Single,2,2
+2,Double,2,4
+3,Suite,3,8

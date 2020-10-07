@@ -1,0 +1,70 @@
+body {
+    background-color: #fef9ff;
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #0d1f2d;
+}
+
+#header {
+    padding: 75px 0 30px 0;
+    text-align: center;
+    font-size: 250%;
+    font-style: italic;
+}
+
+.detailList {
+    border: 1px solid #D3D3D3;
+    margin-bottom: 2%;
+}
+
+.sightingsDetails {
+    font-size: 12px;
+    margin-left: 2%;
+}
+
+.detailLabels {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.verticalLineBreak {
+    float: left;
+    border-left: 1px solid black;
+    height: 100%;
+    padding-right: 15px;
+}
+
+.btn-primary {
+    margin-top: 15px;
+}
+
+.form-control {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+    word-wrap: break-word;
+    max-width: 15px;
+}
+
+.fa-info-circle {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.fa-edit {
+    font-size: 25px;
+    color: cornflowerblue;
+    cursor: pointer;
+}
+
+.fa-trash-o {
+    font-size: 25px;
+    color: #cc3300;
+    cursor: pointer;
+}

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous" />
+        <link rel="stylesheet" href="orderBook.css" />
+        <link rel="stylesheet" href="main.css" />
+        <script src="orderBook.js"></script>
+        <script src="https://kit.fontawesome.com/77b2fa8649.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+        <title>Order Books</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <a class="navbar-brand" href="/">Order Book</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-togglser-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="orderBook">Order Books<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tradeHistory">Trade History</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="header">Order Books</div>
+        </header>
+        <div class="orderBookBody">
+            <div>Please choose or search orders</div>
+            <hr class="regularHR"/>
+            <div class="container">
+                <a class="buttons" id="orderBtns" data-toggle="modal" data-target="#modal-create" th:attr="data-target='#modal-create'">Create Trades</a>
+        
+               <div class="dummyDiv"></div>
+                <div class="panel-wrapper">
+                    <a href="#more" class="more btn" id="more">Show More</a>
+                    <a href="#less" class="less btn" id="less">Show Less</a>
+                    <div class="panel" id="panel">
+                        <div class="containerItem">
+                            <div class="containerItemHeader">Buys <i class="fas fa-minus"></i></div>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Delete</th>
+                                        <th>Stock</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="buys : ${finalBuy}">
+                                        <td>
+                                            <span th:if="${buys.outstanding == buys.number}">
+                                                <a>
+                                                    <i class="fa fa-trash" style="cursor: default; opacity: 0.5;" aria-hidden="true"></i>
+                                                </a>
+                                            </span>
+                                            <span th:unless="${buys.outstanding == buys.number}">
+                                                <a data-toggle="modal" data-target="#modal-warningBuy" th:attr="data-target='#modal-warningBuy'+${buys.orderId}">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span th:text="${buys.stock.ticker}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:text="'$' + ${buys.price}"></span>
+                                        </td>
+                                        <div class="modal modal-warning fade" th:id="modal-warningBuy+${buys.orderId}" >
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header alert alert-danger">
+                                                        <h5>Delete Order</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h3>Are you sure want to delete this order?</h3>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                                        <a class="btn btn-outline pull-right" th:href="@{/deleteOrder(orderID=${buys.orderId},isBuy='true')}" >Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="containerItem">
+                            <div class="containerItemHeader">Sells <i class="fas fa-plus"></i></div>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Stock</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="sells : ${finalSell}">
+                                        <td>
+                                            <span th:text="'$' + ${sells.price}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:text="${sells.stock.ticker}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:if="${sells.outstanding == sells.number}">
+                                                <a>
+                                                    <i class="fa fa-trash" style="cursor: default; opacity: 0.5;" aria-hidden="true"></i>
+                                                </a>
+                                            </span>
+                                            <span th:unless="${sells.outstanding == sells.number}">
+                                                <a data-toggle="modal" data-target="#modal-warningSell" th:attr="data-target='#modal-warningSell'+${sells.orderId}">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </a>
+                                            </span>
+                                        </td>
+                                        <div class="modal modal-warning fade" th:id="modal-warningSell+${sells.orderId}" >
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header alert alert-danger">
+                                                        <h5>Delete Order</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h3>Are you sure want to delete this order?</h3>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                                        <a class="btn btn-outline pull-right" th:href="@{/deleteOrder(orderID=${sells.orderId},isBuy='false')}" >Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal modal-create fade" th:id="modal-create">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5>Create Trade</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <fieldset>
+                                <form action="createTrade" method="POST">
+                                    <hr class="hr-content" data-content="Select Order" />
+                                    <div class="panel" id="modalPanel">
+                                        <div class="containerItem" id="modalItem">
+                                            <div class="containerItemHeader">Buys <i class="fas fa-minus"></i></div>
+                                            <table id="tableBuy" class="table table-bordered table-striped" th:onclick="'javascript:getClickedOrderForMatch(\'' + 'buy' + '\');'">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Stock</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="clickable-row" th:each="buys : ${finalBuy}">
+                                                        <td>
+                                                            <span th:text="${buys.stock.ticker}"></span>
+                                                            <input type="hidden" name="buyOrderID" th:value="${buys.orderId}"/>
+                                                        </td>
+                                                        <td>
+                                                            <span th:text="'$' + ${buys.price}"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="containerItem" id="modalItem">
+                                            <div class="containerItemHeader">Sells <i class="fas fa-plus"></i></div>
+                                            <table id="tableSell" class="table table-bordered table-striped" th:onclick="'javascript:getClickedOrderForMatch(\'' + 'sell' + '\');'">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Amount</th>
+                                                        <th>Stock</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="clickable-row" th:each="sells : ${finalSell}">
+                                                        <td>
+                                                            <span th:text="'$' + ${sells.price}"></span>
+                                                        </td>
+                                                        <td>
+                                                            <span th:text="${sells.stock.ticker}"></span>
+                                                            <input type="hidden" name="sellOrderID" th:value="${sells.orderId}"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Submit" class="btn btn-success pull-right" />
+                                    </div>
+                                </form>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ticker-wrapper">
+                <div class="ticker">
+                    <div class="ticker_item">
+                        <span>Recent 15 Trades:</span>
+                        <span th:each="trades: ${recentTrades}">
+                            <span th:text="' ' + ${trades.buyOrder.stock.ticker} + ' - $' + ${trades.price}"></span>
+                            <span th:if="${trades.buyOrder.price == trades.price}">
+                                <i class="fas fa-minus" id="footerIcons" aria-hidden="true"></i>
+                            </span>
+                            <span th:unless="${trades.buyOrder.price == trades.price}">
+                                <i class="fas fa-plus" id="footerIcons" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+VendingMachine\DTO\VendingMachine.class
+VendingMachine\App.class
+VendingMachine\DAO\VendingMachinePersistenceException.class
+VendingMachine\Service\VendingMachineDataValidationException.class
+VendingMachine\DAO\VendingMachineAuditDao.class
+VendingMachine\Service\VendingMachineServiceLayer.class
+VendingMachine\DAO\VendingMachineDao.class
+VendingMachine\UI\VendingMachineView.class
+VendingMachine\DAO\VendingMachineAuditDaoFileImpl.class
+VendingMachine\DAO\VendingMachineDaoFileImpl.class
+VendingMachine\UI\UserIOConsoleImpl.class
+VendingMachine\UI\UserIO.class
+VendingMachine\Controller\VendingMachineController.class
+VendingMachine\Service\VendingMachineServiceLayerImpl.class
+VendingMachine\DTO\VendingChange.class

@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+7,Test Data,WA,9.25,Tile,100.5,3.50,4.15,351.75,417.08,71.12,839.94

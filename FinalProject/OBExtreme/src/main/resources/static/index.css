@@ -1,0 +1,51 @@
+.container {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding-top: 6%;
+}
+
+.flex-button {
+    width: 40%;
+    margin: 1%;
+    padding: 2%;
+    font-size: 1.75em;
+    letter-spacing: 1px;
+}
+
+.buttonItem {
+    color: #000000;
+}
+
+.buttonItem:hover {
+    text-decoration: none;
+    color: #000000;
+}
+
+.btn-primary {
+    margin-top: 15px;
+}
+
+.form-control {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+    word-wrap: break-word;
+    max-width: 15px;
+}
+
+.fa-arrow-up {
+    color: #008000;
+}
+
+.fa-arrow-down {
+    color: #FF0000;
+}

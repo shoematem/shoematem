@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous" />
+        <link rel="stylesheet" href="orderBook.css" />
+        <link rel="stylesheet" href="main.css" />
+        <script src="orderBook.js"></script>
+        <script src="https://kit.fontawesome.com/77b2fa8649.js" crossorigin="anonymous"></script>
+    
+        <title>Order Books</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <a class="navbar-brand" href="/">Order Book</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-togglser-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="orderBook">Order Books<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tradeHistory">Trade History</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="header">Order Books</div>
+        </header>
+        <div class="orderBookBody" th:with="stockId=${stocks}">
+            <span class="chooseStockHeader">Please choose from the following stocks</span>
+            <select class="form-control" id="getStocks" onchange="showOption()">
+                <option th:value="select" th:text="Select" selected="selected"></option>
+                <option th:value="line" th:text="-------------------" disabled="disabled"></option>
+                <option name="stocks" th:each="stocks : ${stocks}" th:value="${stocks.stockId}" th:text="${stocks.ticker}"></option>
+            </select>
+
+            <div class="dummyDiv"></div>
+            <a class="buttons" id="submitButton" th:href="'javascript:showContainer()'">Submit</a>
+            <a class="buttons" th:text="${stockId.stockId}"></a>
+            <hr />
+            
+            <!--<div class="wrapper" id="wrapper" th:id="${stock.stockId}"> -->
+            <div class="wrapper" id="wrapper">
+                <div class="container">
+                    <!-- THIS IS THE ONE WE NEED ONCE WE GET DATA
+                    <a class="buttons" data-toggle="modal" data-target="#modal-match" th:attr="data-target='#modal-match'+${stock.stockId}">Match Orders</a>
+                    <a class="buttons" data-toggle="modal" data-target="#modal-create" th:attr="data-target='#modal-create'+${stock.stockId}">Create Trades</a>
+                    <a class="buttons" data-toggle="modal" data-target="#modal-delete" th:attr="data-target='#modal-delete'+${stock.stockId}">Delete Orders</a>
+                    -->
+                    <a class="buttons">Match Orders</a>
+                    <a class="buttons">Create Trades</a>
+                    <a class="buttons">Delete Orders</a>
+                    <a class="buttons" id="test"></a>
+                    
+                    <div class="dummyDiv"></div>
+                    <div class="panel-wrapper">
+                        <a href="#more" class="more btn" id="more">Show More</a>
+                        <a href="#less" class="less btn" id="less">Show Less</a>
+                        <div class="panel" id="panel">
+                            <div class="containerItem">
+                                <div class="containerItemHeader">Buys <i class="fas fa-minus"></i></div>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Stock</th>
+                                            <th>Time</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="trades : ${trades}">
+                                            <td>
+                                                <span th:text="${trades.buyOrder.stock.ticker}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${trades.time}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${trades.buyOrder.price}"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="containerItem">
+                                <div class="containerItemHeader">Sells <i class="fas fa-plus"></i></div>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Time</th>
+                                            <th>Amount</th>
+                                            <th>Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="trades : ${trades}">
+                                            <td>
+                                                <span th:text="${trades.time}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${trades.sellOrder.price}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${trades.sellOrder.stock.ticker}"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- THIS IS THE ONE WE NEED ONCE WE GET DATA
+                <div class="modal modal-match fade" th:id="modal-match+${stock.stockId}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 th:text="'Match Order for' + ${stock.stockId}"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal modal-create fade" th:id="modal-create+${stock.stockId}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 th:text="'Create Trade for' + ${stock.stockId}"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal modal-delete fade" th:id="modal-delete+${stock.stockId}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 th:text="'Delete Order for' + ${stock.stockId}"></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <footer>
+            <div class="ticker-wrapper">
+                <div class="ticker">
+                    <div class="ticker_item">
+                        <span th:each="trades : ${trades}" th:text="${trades.buyOrder.stock.stockId} + ' - ' + ${trades.buyOrder.price} + ' | ' + ${trades.sellOrder.price}"></span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    
+    <!-- Optional JavaScript -->
+    
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function showOption()
+        {
+            var options = /*[[${stocks}]]*/ null;
+            console.log(options);
+            var selectedIndex = ($('#getStocks option:selected').index() - 2);
+            console.log('\ ' + $('#getStocks option:selected').val());
+            var option = options[selectedIndex];
+            console.log(option);
+            $('#test').text(option.stockId);
+        }
+        /*]]>*/
+    </script>
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>

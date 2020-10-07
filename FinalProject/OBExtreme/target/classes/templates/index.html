@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Order Book</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous" />
+        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="main.css" />
+        <script src="https://kit.fontawesome.com/77b2fa8649.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <a class="navbar-brand" href="/">Order Book</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="orderBook">Order Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tradeHistory">Trade History</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="header">Order Book Main Page</div>
+        </header>
+        <div class="container">
+            <button class="flex-button">
+                <a class="buttonItem" href="orderBook">Order Books</a>
+            </button>
+            <button class="flex-button">
+                <a class="buttonItem" href="tradeHistory">Trade History</a>
+            </button>
+        </div>
+        <footer>
+            <div class="ticker-wrapper">
+                <div class="ticker">
+                    <div class="ticker_item">
+                        <span>Recent 15 Trades:</span>
+                        <span th:each="trades: ${recentTrades}">
+                            <span th:text="' ' + ${trades.buyOrder.stock.ticker} + ' - $' + ${trades.price}"></span>
+                            <span th:if="${trades.buyOrder.price == trades.price}">
+                                <i class="fas fa-minus" id="footerIcons" aria-hidden="true"></i>
+                            </span>
+                            <span th:unless="${trades.buyOrder.price == trades.price}">
+                                <i class="fas fa-plus" id="footerIcons" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        <!-- link cdn to bootstrap, jquery, popper -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    </body>
+</html>

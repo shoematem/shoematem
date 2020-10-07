@@ -1,0 +1,6 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+4,Matthew Shoemate,CA,25.00,Laminate,1000,1.75,2.10,1750.00,2100.00,962.50,4812.50
+5,Matthew R Shoemate,WA,9.25,Wood,500,5.15,4.75,2575.00,2375.00,457.88,5407.88
+8,Test, Dats,CA,25.00,Laminate,200,1.75,2.10,350.00,420.00,192.50,962.50
+9,Testing,CA,25.00,Wood,150,5.15,4.75,772.50,712.50,371.25,1856.25
+10,"Bill Brown, Jr",WA,9.25,Carpet,120,2.25,2.10,270.00,252.00,48.29,570.29

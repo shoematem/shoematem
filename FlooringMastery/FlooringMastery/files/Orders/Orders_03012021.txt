@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+6,Matthew Shoemate,KY,6.00,Tile,100000000,3.50,4.15,350000000.00,415000000.00,45900000.00,810900000.00
