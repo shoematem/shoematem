@@ -1,0 +1,18 @@
+-------------------------------------------------------------------------------
+Test set: Flooring.Service.FlooringServiceLayerImplTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.086 sec <<< FAILURE!
+Flooring.Service.FlooringServiceLayerImplTest.testCreateOrderInvalidData()  Time elapsed: 0.027 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Expected ValidationException was not thrown.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:38)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:84)
+	at Flooring.Service.FlooringServiceLayerImplTest.testCreateOrderInvalidData(FlooringServiceLayerImplTest.java:83)
+
+Flooring.Service.FlooringServiceLayerImplTest.testRemoveStudent()  Time elapsed: 0.053 sec  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Order removed from 1 should be Matthew Shoemate. ==> expected: Flooring.DTO.Orders@394e1a0f<1/Matthew Shoemate/Tile/WA/150/null/null/null/null/null/null/null> but was: Flooring.DTO.Orders@27a5f880<1/Matthew Shoemate/Tile/WA/150/null/null/null/null/null/null/null>
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:54)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:195)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:184)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:519)
+	at Flooring.Service.FlooringServiceLayerImplTest.testRemoveStudent(FlooringServiceLayerImplTest.java:119)
+

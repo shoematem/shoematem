@@ -1,0 +1,18 @@
+Fruit Smoothie::Other::4.75::3
+Dr. Pepper::SodaPop::1.89::3
+Sam Adams::Alcohol::2.79::4
+Sprite::SodaPop::1.79::5
+Apple Juice::Juice::2.19::3
+Pepsi::SodaPop::1.89::0
+Aquafina::Water::1.50::2
+Coffee::EnergyCaffeinated::1.29::7
+Faygo::SodaPop::1.19::5
+Coca-Cola::SodaPop::1.89::3
+Dasani::Water::1.69::1
+Propel::Water::1.79::2
+Chocolate Shake::Other::4.50::2
+Gatorade::Sports::2.49::3
+Monster::EnergyCaffeinated::3.79::3
+Elephant::Water::7.49::0
+Mountain Dew::SodaPop::1.89::4
+Bud Light::Alcohol::1.99::0

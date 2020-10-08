@@ -1,0 +1,139 @@
+hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    margin-top: -0.5%;
+    width: 100%;
+}
+
+.vmHeader {
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 0.05em 0.05em gray;
+    margin: 1% 0 2% 0;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.containerLeft {
+    width: 65%;
+    float: left;
+}
+
+.containerRight {
+    width: 35%;
+    float: right;
+}
+
+.vmHeader {
+    text-align: center;
+}
+
+.allItems {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.singleItem {
+    width: 23%;
+    height: 8em;
+    margin: 2% 2%;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 10px;
+    cursor: default;
+}
+
+.item {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.singleItem:hover {
+    position: relative;
+    border: 1px solid transparent;
+    transition: transform .15s ease-in-out;
+    z-index: 0;
+    transform: scale(1.05);
+}
+
+.itemHeader {
+    margin-left: 1%;
+}
+
+.itemHeader, .item {
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+
+.formContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    letter-spacing: 1px;
+}
+
+.formHeaders, .formInputs, .formInputs2, .formButtons, .dummyContainer {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.formHeaders {
+    margin-bottom: 2%;
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+.formInputs, .formInputs2 {
+    border: 1px solid black;
+    width: 30%;
+    height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.formInputs2 {
+    width: 45%;
+}
+
+.formButtons {
+    margin-top: 1%;
+    width: 50%;
+}
+
+.formText {
+    margin-right: 3%;
+}
+
+.dummyContainer {
+    display: inline-block;
+    width: 100%;
+}
+
+.coinButton {
+    padding: 5% 10%;
+    margin: 2% 3%;
+}
+
+.getItemButton {
+    width: 70%;
+    height: 50px;
+    margin-top: 3%;
+}
+
+span.formHeaders {
+    font-weight: normal;
+    margin-right: 4%;
+}
+
+span.formInputs, span.formHeaders {
+    position: relative;
+    right: -26.5%;
+    float: left;
+}

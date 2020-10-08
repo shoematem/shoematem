@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous" />        
+        <link rel="stylesheet" href="tradeHistory.css" />
+        <link rel="stylesheet" href="main.css" />
+        <script src="https://kit.fontawesome.com/77b2fa8649.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+        <title>Trade History</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <a class="navbar-brand" href="/">Order Book</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="orderBook">Order Books</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="tradeHistory">Trade History<span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="header">Trade History</div>
+        </header>
+        <div class="tradeHistoryBody">
+            <div class="container">
+                <div class="panel-wrapper">
+                    <a href="#more" class="more btn" id="more">Show More</a>
+                    <a href="#less" class="less btn" id="less">Show Less</a>
+                    <div class="panel">
+                        <div class="item">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Stock</th>
+                                        <th>Time</th>
+                                        <th>Price</th>
+                                        <th>Number of Trades</th>
+                                        <th>
+                                            <i class="fas fa-minus" aria-hidden="true"></i> Buy or Sell 
+                                            <i class="fas fa-plus" aria-hidden="true"></i>
+                                        </th>
+                                        <th>Feedback</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="trades : ${tradesList}">
+                                        <td>
+                                            <span th:text="${trades.buyOrder.stock.ticker}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:text="${#temporals.format(trades.time, 'MMM dd, yyyy h:mm a')}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:text="'$' + ${trades.price}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:text="${trades.number}"></span>
+                                        </td>
+                                        <td>
+                                            <span th:if="${trades.buyOrder.price == trades.price}">Buy 
+                                                <i class="fas fa-minus" aria-hidden="true"></i>
+                                            </span>
+                                            <span th:unless="${trades.buyOrder.price == trades.price}">Sell 
+                                                <i class="fas fa-plus" aria-hidden="true"></i>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span th:if="${trades.sellOrder.price > trades.buyOrder.price}">Good Trade 
+                                                <a title="Details" data-toggle="modal" data-target="#modal-details" th:attr="data-target='#modal-details'+${trades.tradeId}">
+                                                    <i class="fas fa-thumbs-up"></i>
+                                                </a>
+                                            </span>
+                                            <span th:unless="${trades.sellOrder.price > trades.buyOrder.price}">Bad Trade 
+                                                <a title="Details" data-toggle="modal" data-target="#modal-details" th:attr="data-target='#modal-details'+${trades.tradeId}">
+                                                    <i class="fas fa-thumbs-down"></i>
+                                                </a>
+                                            </span>
+                                        </td>
+                                        <div class="modal modal-details fade" th:id="modal-details+${trades.tradeId}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5>Details for this trade</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <label class="detailLabels">Stock</label>
+                                                        <div class="detailList">
+                                                            <div class="tradeDetails" th:text="${trades.buyOrder.stock.ticker}"></div>
+                                                        </div>
+                                                        <label class="detailLabels">Buy Price</label>
+                                                        <div class="detailList">
+                                                            <div class="tradeDetails" th:text="'$' + ${trades.buyOrder.price}"></div>
+                                                        </div>
+                                                        <label class="detailLabels">Sell Price</label>
+                                                        <div class="detailList">
+                                                            <div class="tradeDetails" th:text="'$' + ${trades.sellOrder.price}"></div>
+                                                        </div>
+                                                        <label class="detailLabels">Price Traded</label>
+                                                        <div class="detailList">
+                                                            <div class="tradeDetails" th:text="'$' + ${trades.price}"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ticker-wrapper">
+                <div class="ticker">
+                    <div class="ticker_item">
+                        <span>Recent 15 Trades:</span>
+                        <span th:each="trades: ${recentTrades}">
+                            <span th:text="' ' + ${trades.buyOrder.stock.ticker} + ' - $' + ${trades.price}"></span>
+                            <span th:if="${trades.buyOrder.price == trades.price}">
+                                <i class="fas fa-minus" id="footerIcons" aria-hidden="true"></i>
+                            </span>
+                            <span th:unless="${trades.buyOrder.price == trades.price}">
+                                <i class="fas fa-plus" id="footerIcons" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <!-- End main body -->
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: ClassRoster.DAO.ClassRosterDaoFileImplTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.075 sec <<< FAILURE!
+ClassRoster.DAO.ClassRosterDaoFileImplTest.testAddGetStudent()  Time elapsed: 0.06 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at ClassRoster.DAO.ClassRosterDaoFileImplTest.testAddGetStudent(ClassRosterDaoFileImplTest.java:54)
+
+ClassRoster.DAO.ClassRosterDaoFileImplTest.testRemoveStudent()  Time elapsed: 0.004 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at ClassRoster.DAO.ClassRosterDaoFileImplTest.testRemoveStudent(ClassRosterDaoFileImplTest.java:112)
+
+ClassRoster.DAO.ClassRosterDaoFileImplTest.testAddGetAllStudents()  Time elapsed: 0.001 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at ClassRoster.DAO.ClassRosterDaoFileImplTest.testAddGetAllStudents(ClassRosterDaoFileImplTest.java:82)
+

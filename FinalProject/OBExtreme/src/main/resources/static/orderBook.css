@@ -1,0 +1,118 @@
+.orderBookBody {
+    max-width: 100%;
+    margin-top: 1%;
+    letter-spacing: 1.5px;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.containerItem {
+    width: 45%;
+    margin: 2% 1% 0 0;
+}
+
+.containerItemHeader {
+    position: relative;
+    margin: 0 0 2% 0;
+    font-size: 1.25em;
+    letter-spacing: 3px;
+}
+
+button .buttons {
+    width: 40%;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+
+.table-striped tbody tr.highlight td {
+    background-color: #999999;
+}
+
+.dummyDiv {
+    width: 100%;
+}
+
+.panel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+.panel {
+    position: relative;
+    width: 100%;
+    max-height: 20em;
+    overflow: hidden;
+    transition: max-height .5s ease;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+    overflow-x: hidden;
+    margin-bottom: 6em;
+}
+
+#hideUntilSelect {
+    display: none;
+}
+
+#orderBtns {
+    width: 20%;
+}
+
+#modalItem {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+#modalPanel {
+    opacity: 1;
+    margin-bottom: 1% !important;
+}
+
+#modalItem {
+    width: 80%;
+    margin-top: 0;
+}
+
+.btn {
+    border-color: #000000;
+    color: #333333;
+    background: #EEEEEE;
+    border-radius: 5px;
+    left: 30%;
+    padding: 1em;
+    width: 40%;
+}
+
+.radio {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.radioButton {
+    width: 20%;
+}
+
+.form-control {
+    margin-bottom: 2%;
+    width: 80%;
+}
+
+.fa-trash {
+    cursor: pointer;
+    color: #FF0000;
+}

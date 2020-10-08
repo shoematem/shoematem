@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Heroes & Villains</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous" />
+        <script src="https://kit.fontawesome.com/77b2fa8649.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/superPersonStyle.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <a class="navbar-brand" href="/">Supers Tracker</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="sightings">Sightings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="location">Locations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="organizations">Organizations</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="superPerson">Supers<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="superPower">Superpowers</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <h1 class="jumbotron" id="header">Heroes & Villains</h1>
+        </header>   
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-bordered table-striped" >
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>
+                                    <i class="fas fa-mask fa-sm" aria-hidden="true"></i> Hero/
+                                    <i class="fas fa-skull-crossbones fa-sm" aria-hidden="true"></i> Villain
+                                </th>
+                                <th>Details</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="superPerson : ${superPersonList}">
+                                <td>
+                                    <span th:text="${superPerson.superPersonName}"></span>
+                                </td>
+                                <td>
+                                    <span th:if="${superPerson.isSuperHero}">
+                                        <i class="fas fa-mask fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <span th:unless="${superPerson.isSuperHero}">
+                                        <i class="fas fa-skull-crossbones fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#modal-details" th:attr="data-target='#modal-details'+${superPerson.superPersonID}">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#modal-edit" th:attr="data-target='#modal-edit'+${superPerson.superPersonID}">
+                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#modal-warning" th:attr="data-target='#modal-warning'+${superPerson.superPersonID}">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                                <div class="modal modal-details fade" th:id="modal-details+${superPerson.superPersonID}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 th:text="'Details for ' + ${superPerson.superPersonName}"></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <label class="detailLabels">Description</label>
+                                                <div class="detailList">
+                                                    <div class="superPersonDetails" th:text="${superPerson.superPersonDescription}"></div>
+                                                </div>
+                                                <label class="detailLabels">Superhero/Villain</label>
+                                                <div class="detailList">
+                                                    <div class="superPersonDetails" th:if="${superPerson.isSuperHero}" >Hero</div>
+                                                    <div class="superPersonDetails" th:unless="${superPerson.isSuperHero}">Villain</div>
+                                                </div>
+                                                <label class="detailLabels">Superpower</label>
+                                                <div class="detailList">
+                                                    <div class="superPersonDetails" th:if="${#lists.isEmpty(superPerson.superPower)}">No Superpowers</div>
+                                                    <div class="superPersonDetails" th:each="superPower : ${superPerson.superPower}" th:text="${superPower.superPowerName}"></div>
+                                                </div>
+                                                <label class="detailLabels">Organizations</label>
+                                                <div class="detailList">
+                                                    <div class="superPersonDetails" th:if="${#lists.isEmpty(superPerson.organizations)}">No Organizations</div>
+                                                    <div class="superPersonDetails" th:each="organizations : ${superPerson.organizations}" th:text="${organizations.organizationName}"></div>
+                                                </div>
+                                                <label class="detailLabels">Sightings</label>
+                                                <div class="detailList">
+                                                    <div class="superPersonDetails" th:if="${#lists.isEmpty(superPerson.sightings)}">No Sightings</div>
+                                                    <div class="superPersonDetails" th:each="sightings,iterSighting : ${superPerson.sightings}" th:text="${sightings.location.address} +' on '+ ${sightings.sightingDate}"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal modal-edit fade" th:id="modal-edit+${superPerson.superPersonID}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5>Edit Hero/Villain</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <fieldset>
+                                                    <form action="editSuperPerson" method="POST">
+                                                        <input type="hidden" name="superPersonID" th:value="${superPerson.superPersonID}">
+                                                        <label>Name</label>
+                                                        <input type="text" name="superPersonName" required="" th:value="${superPerson.superPersonName}" class="form-control input-md" maxlength="60">
+                                                        <label>Description</label>
+                                                        <textarea class="form-control" name= "superPersonDescription" th:text="${superPerson.superPersonDescription}" rows="2" required="" maxlength="200"></textarea>
+                                                        <label>Hero or Villain?</label>
+                                                        <div class="radio">
+                                                            <label for="isSuperHero-0">
+                                                            <input type="radio" name="isSuperHero" id="isSuperHero-0" th:value="true" th:checked="${superPerson.isSuperHero}">
+                                                                Hero
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio">
+                                                            <label for="isSuperHero-1">
+                                                            <input type="radio" name="isSuperHero" id="isSuperHero-1" th:value="false" th:checked="${!superPerson.isSuperHero}">
+                                                                Villain
+                                                            </label>
+                                                        </div>
+                                                        <br>
+                                                        <label>Superpowers</label>
+                                                        <select name='superPowers' class="form-control" multiple>
+                                                            <option th:each="superPowers : ${superPowerList}" th:value="${superPowers.superPowerID}" th:text="${superPowers.superPowerName}"></option>
+                                                        </select>
+                                                        <br>
+                                                        <label>Organizations (To Edit: Please Re-Select Organizations)</label>
+                                                        <select name='organizations' class="form-control" multiple>
+                                                            <option th:each="organizations : ${organizationList}" th:value="${organizations.organizationID}" th:text="${organizations.organizationName}" ></option>
+                                                        </select>
+                                                        <div class="modal-footer">
+                                                            <input type="submit" value="Submit" class="btn btn-success pull-right">
+                                                        </div>
+                                                    </form>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal modal-warning fade" th:id="modal-warning+${superPerson.superPersonID}" >
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header alert alert-danger">
+                                                <h5>Delete Hero/Villain</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h3>Are you sure want to delete this Super Person?</h3>
+                                                <h4>
+                                                    <span th:text="${superPerson.superPersonName}"></span>
+                                                </h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                                <a href="#" th:href="@{/deleteSuperPerson(superPersonID=${superPerson.superPersonID})}" >
+                                                    <button class="btn btn-danger">Delete</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="addSuperPerson" class="col-lg-4">
+                    <div class="verticalLineBreak"></div>
+                    <h2>Add Hero/Villain</h2>
+                    <fieldset>
+                        <form action="addSuperPerson" method="POST">
+                            <label>Name</label>
+                            <input type="text" name="superPersonName" placeholder= "Enter Super's Name" required="" maxlength="60" class="form-control input-md">
+                            <label>Description</label>
+                            <textarea class="form-control" name= "superPersonDescription" rows="2" required="" maxlength="200"></textarea>
+                            <label>Hero or Villain?</label>
+                            <div class="radio">
+                                <label for="isSuperHero-0">
+                                    <input type="radio" name="isSuperHero" id="isSuperHero-0" value="true" checked="checked">
+                                        Hero
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label for="isSuperHero-1">
+                                    <input type="radio" name="isSuperHero" id="isSuperHero-1" value="false">
+                                        Villain
+                                </label>
+                            </div>
+                            <label>Superpowers</label>
+                            <select name='superPowers' class="form-control" multiple>
+                                <option th:each="superPower : ${superPowerList}" th:value="${superPower.superPowerID}" th:text="${superPower.superPowerName}"></option>
+                            </select>
+                            <br>
+                            <label>Organizations</label>
+                            <select name='organizations' class="form-control" multiple>
+                                <option th:each="organizations : ${organizationList}" th:value="${organizations.organizationID}" th:text="${organizations.organizationName}"></option>
+                            </select>
+                            <input type="submit" value="Add Person" class="btn btn-primary pull-right">
+                        </form>
+                    </fieldset>    
+                </div>
+            </div>
+        </div>
+
+        <!-- link cdn to bootstrap, jquery, popper -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    </body>
+</html>

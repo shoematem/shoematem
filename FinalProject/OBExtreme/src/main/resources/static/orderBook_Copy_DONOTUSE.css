@@ -1,0 +1,144 @@
+.wrapper {
+    display: none;
+}
+
+.orderBookBody {
+    max-width: 100%;
+    margin-top: 1%;
+    letter-spacing: 1.5px;
+    font-variant: small-caps;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.containerItem {
+    width: 40%;
+    margin: 2% 1% 0 0;
+    letter-spacing: 1px;
+}
+
+.containerItemHeader {
+    position: relative;
+    margin: -2% 0 2% 0;
+    font-size: 1.25em;
+    letter-spacing: 3px;
+    
+}
+
+.chooseStockHeader {
+    display: inline-block;
+    width: 100%;
+    font-style: italic;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.buttons {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 0.5% 1%;
+    cursor: pointer;
+    margin: 1% 1% 0 0;
+}
+
+.buttons:hover {
+    color: #333333;
+    text-decoration: none;
+}
+
+.buttons:not(#submitButton) {
+    margin-bottom: 1% !important;
+}
+
+#submitButton {
+    margin: 0 auto;
+    margin-bottom: 2% !important;
+    display: table;
+}
+
+.form-control {
+    width: 30%;
+    margin-top: 0.5% !important;
+    margin-bottom: 0.5% !important;
+    margin: 0 auto;
+    display: table;
+}
+
+.dummyDiv {
+    width: 100%;
+}
+
+.panel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+.panel {
+    position: relative;
+    width: 100%;
+    max-height: 20em;
+    overflow: hidden;
+    transition: max-height .5s ease;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-bottom: 6em;
+}
+
+.btn {
+    border-color: #000000;
+    color: #333333;
+    background: #EEEEEE;
+    border-radius: 5px;
+    left: 30%;
+    padding: 1em;
+    width: 40%;
+}
+
+.btn:hover {
+    color: #333333;
+    text-decoration: none;
+}
+
+.more, .less {
+    bottom: 0;
+    margin-bottom: 2.25em;
+    position: absolute;
+    text-align: center;
+}
+
+.less, .more:target {
+    display: none;
+}
+
+.more:target ~ .less {
+    display: block;
+}
+
+.more:target ~ .panel {
+    max-height: 1000px;
+    opacity: 1;
+}
+
+.fa-plus {
+    color: #008000;
+}
+
+.fa-minus {
+    color: #FF0000;
+}
